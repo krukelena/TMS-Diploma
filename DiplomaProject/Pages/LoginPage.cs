@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DiplomaProject.Wrappers;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,38 +25,12 @@ namespace DiplomaProject.Pages
         protected override string Endpoint => "auth/login";
 
 
-        public IWebElement EmailInput
-        {
-            get
-            {
-                return _driver.FindElement(EmailInputBy);
-            }
-        }
+        public Input EmailInput => new Input(_driver.FindElement(EmailInputBy));
 
-        public IWebElement PasswordInput
-        {
-            get
-            {
-                return _driver.FindElement(PasswordInputBy);
-            }
-        }
+        public Input PasswordInput => new Input(_driver.FindElement(PasswordInputBy));
 
-        public IWebElement RememberMeCheckbox
-        {
-            get
-            {
-                return _driver.FindElement(RememberMeCheckboxBy);
-            }
-        }
+        public IWebElement RememberMeCheckbox => _driver.FindElement(RememberMeCheckboxBy);
 
-        public IWebElement LoginButton
-        {
-            get
-            {
-                return _driver.FindElement(LoginButtonBy);
-            }
-        }
+        public Button LoginButton => new Button(_driver.FindElement(LoginButtonBy));
     }
-
-    
 }
