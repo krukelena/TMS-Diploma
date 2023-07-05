@@ -25,7 +25,7 @@ namespace DiplomaProject.Pages
             }
         }
 
-        private void OpenPageByURL()
+        public void OpenPageByURL()
         {
             _driver.Navigate().GoToUrl(Configurator.AppSettings.URL + Endpoint);
         } 
