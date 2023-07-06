@@ -19,7 +19,8 @@ namespace DiplomaProject.Pages
         private static readonly By AvatarImageBy = By.XPath("//div[@class='avatar avatar--project  avatar--64     ']/img");
         private static readonly By CustomAvatarImageBy = By.XPath("//div[@class='avatar avatar--project  avatar--64     ']/img[contains(@src, 'attachments/view')]");
 
-        public static readonly By DeleteIconBy = By.XPath(".//div[@data-action='delete']");
+        public static readonly By DeleteIconBy = By.XPath(".//div[@data-action='delete' and @class='tooltip']");
+        public static readonly By HiddenDeleteIconBy = By.XPath(".//div[contains(@class, 'default-hidden')]");
         public static readonly By DeleteCheckboxBy = By.XPath("//label[@data-target='confirmationLabel']");
         public static readonly By DeleteButtonBy = By.XPath("//button[@data-target='deleteButton']");
 
@@ -44,5 +45,18 @@ namespace DiplomaProject.Pages
 
         public IWebElement DeleteCheckbox => _driver.FindElement(DeleteCheckboxBy);
         public Button DeleteButton => new Button(_driver.FindElement(DeleteButtonBy));
+
+
+        public IWebElement GetTableRowByProjectName(string projectName)
+        {
+            return _driver.FindElement(By.XPath($"//tr[@data-name='{projectName}']"));
+        }
+
+        public IWebElement FindHiddenDeleteIconByProjectId(string projectId)
+        {
+            return _waitService.SearchElement(
+                By.XPath($"//tr[@data-id='{projectId}']/td[4]/div[contains(@class, 'default-hidden')]")
+            );
+        }
     }
 }

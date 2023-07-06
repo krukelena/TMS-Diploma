@@ -129,8 +129,7 @@ namespace DiplomaProject.Tests
                 string content = projectsPage.DefaultAccessTooltip.GetAttribute("data-content");
                 var tooltip = _driver.FindElement(By.XPath($"//div[text()='{content}']"));
 
-                if (tooltip == null)
-                    Assert.Fail();
+                Assert.IsTrue(tooltip != null);
             }
             catch(Exception ex) { 
                 Assert.Fail(ex.Message); 
@@ -169,30 +168,26 @@ namespace DiplomaProject.Tests
                     Login = "krukelenka84@gmail.com",
                     Password = "krukelenka84"
                 };
+                var project = new Project { Name = "TMS" };
 
                 if (!_loginSteps.SuccessfulLogin(user).IsPageOpened)
                     throw new Exception("Home page not opened!");
-
 
                 _projectSteps.ProjectsPage.OpenPageByURL();
                 if (!_projectSteps.ProjectsPage.IsPageOpened)
                     throw new Exception("Page not opened!");
 
-                var project = new Project { Name = "123" };
+                var projectId = _projectSteps.RemoveProject(project);
+                var deleteIcon = _projectSteps.ProjectsPage.FindHiddenDeleteIconByProjectId(projectId);
 
-                var tableRow = _driver.FindElement(By.XPath($"//tr[@data-name='{project.Name}']"));
-                var rowId = tableRow.GetAttribute("data-id");
+                Assert.IsTrue(deleteIcon != null);
 
-                //tableRow = _driver.FindElement(By.XPath($"//tr[@data-id='{rowId}']"));
-                //if (tableRow == null)
-                //    Assert.IsTrue(true);
 
-                //var deletedEntity = tableRow?.FindElement(By.XPath("//span[@class='deleted-entity']"));
-                
-                
-                Assert.IsTrue(_projectSteps.RemoveProject(project));
+                //var displayed = deleteIcon.Displayed;
+                //var iconClass = deleteIcon.GetAttribute("class");
+                //Assert.IsTrue(iconClass.Contains("default-hidden"));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.Fail(ex.ToString());
             }

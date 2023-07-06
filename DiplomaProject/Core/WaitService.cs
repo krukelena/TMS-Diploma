@@ -18,6 +18,19 @@ namespace DiplomaProject.Core
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
         }
 
+
+        public IWebElement? SearchElement(By by)
+        {
+            try
+            {
+                return _wait.Until(x => x.FindElement(by));
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
         public IWebElement? GetVisibleElement(By by)
         {
             try

@@ -35,21 +35,22 @@ namespace DiplomaProject.Steps
             addButton.Click();
         }
 
-        public bool RemoveProject(Project project)
+        public string RemoveProject(Project project)
         {
             ProjectsPage.OpenPageByURL();
 
             if (!ProjectsPage.IsPageOpened)
                 throw new Exception("Page not opened!");
 
-            var tableRow = _driver.FindElement(By.XPath($"//tr[@data-name='{project.Name}']"));
+            var tableRow = ProjectsPage.GetTableRowByProjectName(project.Name);
+            var projectId = tableRow.GetAttribute("data-id");
             var deleteIcon = tableRow.FindElement(ProjectsPage.DeleteIconBy);
             deleteIcon.Click();
 
             ProjectsPage.DeleteCheckbox.Click();
             ProjectsPage.DeleteButton.Click();
 
-            return deleteIcon.Displayed;
+            return projectId;
         }
     }
 }
