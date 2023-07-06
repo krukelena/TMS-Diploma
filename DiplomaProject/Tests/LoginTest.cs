@@ -1,5 +1,6 @@
 ﻿using DiplomaProject.Core;
 using DiplomaProject.Pages;
+using DiplomaProject.Steps;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -9,36 +10,30 @@ using System.Threading.Tasks;
 
 namespace DiplomaProject.Tests
 {
-    public class LoginTest
+    public class LoginTest : BaseTest
     {
-
-        protected IWebDriver _driver;
-
-        [SetUp]
-        public void SetUp() 
-        {
-            _driver = new Browser().Driver; 
-                
-        }
-
-        [Test]
+        [Test,Category ("Positive")]
         public void SuccessfulLoginTest()
         {
-            var loginPage = new LoginPage(_driver, true);
+            _loginSteps.SuccessfulLogin(new Models.User
+            {
+                Login = "krukelenka84@gmail.com",
+                Password = "krukelenka84"
+            });
 
-            loginPage.EmailInput.SendKeys("krukelenka84@gmail.com");
-            loginPage.PasswordInput.SendKeys("krukelenka84");
-            loginPage.LoginButton.Click();
-
-            Thread.Sleep(3000);
+            Assert.IsTrue(_loginSteps.HomePage.IsPageOpened);
         }
 
-        [TearDown]
-        public void TearDown()
+        [Test, Category ("Negative")]
+        public void NegativeLoginTest()
         {
-            _driver.Quit();
-            _driver.Dispose();
-        }
+            _loginSteps.NegativeLogin(new Models.User
+            {
+                Login = "krukelenka84@gmail.com",
+                Password = ""
+            });
 
+            Assert.IsFalse(_loginSteps.HomePage.IsPageOpened);
+        }
     }
 }

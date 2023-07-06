@@ -15,7 +15,20 @@ namespace DiplomaProject.Core
         public WaitService(IWebDriver? driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+        }
+
+
+        public IWebElement? SearchElement(By by)
+        {
+            try
+            {
+                return _wait.Until(x => x.FindElement(by));
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         public IWebElement? GetVisibleElement(By by)
