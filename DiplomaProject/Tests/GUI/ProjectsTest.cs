@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiplomaProject.Tests
+namespace DiplomaProject.Tests.UI
 {
-    public class ProjectsTest : BaseTest
+    public class ProjectsTest : BaseGuiTest
     {
 
         [Test]
-        [Description ("Check limit value 81 ")]
+        [Description("Check limit value 81 ")]
         public void CheckLimitValue_1()
         {
             var user = new User
@@ -81,7 +81,7 @@ namespace DiplomaProject.Tests
                 if (summaryInput == null)
                     Assert.Fail();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.Fail(ex.Message);
             }
@@ -109,7 +109,7 @@ namespace DiplomaProject.Tests
         }
 
         [Test]
-        public void CheckTooltip() 
+        public void CheckTooltip()
         {
             try
             {
@@ -131,8 +131,9 @@ namespace DiplomaProject.Tests
 
                 Assert.IsTrue(tooltip != null);
             }
-            catch(Exception ex) { 
-                Assert.Fail(ex.Message); 
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
             }
         }
 
