@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiplomaProject.Tests
+namespace DiplomaProject.Tests.UI
 {
-    public class LoginTest : BaseTest
+    public class LoginTest : BaseGuiTest
     {
-        [Test,Category ("Positive")]
+        [Test, Category("Positive")]
         public void SuccessfulLoginTest()
         {
             _loginSteps.SuccessfulLogin(new Models.User
@@ -24,7 +24,7 @@ namespace DiplomaProject.Tests
             Assert.IsTrue(_loginSteps.HomePage.IsPageOpened);
         }
 
-        [Test, Category ("Negative")]
+        [Test, Category("Negative")]
         public void NegativeLoginTest()
         {
             _loginSteps.NegativeLogin(new Models.User

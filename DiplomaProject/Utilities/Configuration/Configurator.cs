@@ -22,6 +22,7 @@ namespace DiplomaProject.Utilities.Configuration
                 var child = Configuration.GetSection("AppSettings");
 
                 appSettings.URL = child["URL"];
+                appSettings.BearerToken = child["BearerToken"];
 
                 return appSettings;
             }
