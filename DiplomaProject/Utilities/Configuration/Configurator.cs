@@ -2,19 +2,44 @@
 
 namespace DiplomaProject.Utilities.Configuration
 {
-    public static class Configurator
+    public class Configurator
     {
-        static Configurator()
+        private static object _lockObject = new object();
+        private static Configurator _instance;
+
+       
+        public static Configurator Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    lock(_lockObject)
+                    {
+                        if(_instance == null)
+                        {
+                            _instance = new Configurator();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
+
+        // тут как и раньше, только те
+        private Configurator()
         {
             _configuration = new Lazy<IConfiguration>(BuildConfiguration);
         }
 
+        private readonly Lazy<IConfiguration> _configuration;
+        public IConfiguration Configuration => _configuration.Value;
 
-        private static readonly Lazy<IConfiguration> _configuration;
 
-        public static IConfiguration Configuration => _configuration.Value;
 
-        public static AppSettings AppSettings
+        public AppSettings AppSettings
         {
             get
             {
@@ -28,10 +53,10 @@ namespace DiplomaProject.Utilities.Configuration
             }
         }
 
-        public static string? Browser => Configuration["Browser"];
+        public string? Browser => Configuration["Browser"];
 
 
-        private static IConfiguration BuildConfiguration()
+        private IConfiguration BuildConfiguration()
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");

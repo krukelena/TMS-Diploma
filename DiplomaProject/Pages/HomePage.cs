@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Html.Dom;
 using DiplomaProject.Wrappers;
+using NLog;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace DiplomaProject.Pages
 {
     public class HomePage : BasePage
     {
+       
         private static readonly By AddProjectButtonBy = By.XPath("//button[@data-target='home--index.addButton']");
 
         public HomePage(IWebDriver driver, bool openPageByURL = false) : base(driver, openPageByURL)
         {
+            
         }
 
 

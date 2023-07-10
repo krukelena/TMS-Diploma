@@ -1,5 +1,6 @@
 ﻿using DiplomaProject.Models;
 using DiplomaProject.Pages;
+using NLog;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace DiplomaProject.Steps
 {
     public class LoginSteps : BaseStep
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         public LoginSteps(IWebDriver driver) : base(driver)
         {
             LoginPage = new LoginPage(driver);
@@ -23,14 +25,18 @@ namespace DiplomaProject.Steps
        
         public HomePage SuccessfulLogin(User user)
         {
+
             Login(user);
 
-
+            _logger.Info("Перехожу со страницы LoginPage на страницу HomePage");
+            
             return HomePage;
         }
         public LoginPage NegativeLogin(User user)
         {
             Login(user);
+
+            _logger.Info("Переход со страницы LoginPage не осуществляется");
 
             return LoginPage;
         }
