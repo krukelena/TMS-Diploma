@@ -1,5 +1,6 @@
 ﻿using DiplomaProject.Models;
 using DiplomaProject.Wrappers;
+using NLog;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace DiplomaProject.Pages
 {
    public class ProjectsPage :  BasePage
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         private static readonly By AddProjectButtonBy = By.XPath("//button[@data-target='admin--projects--index.addButton']");
         private static readonly By SummaryTextAreaBy = By.XPath("//textarea");
         private static readonly By DefaultAccessTooltipBy = By.XPath("//div[@data-title='Default access']");
@@ -28,6 +31,7 @@ namespace DiplomaProject.Pages
 
         public ProjectsPage(IWebDriver driver, bool openPageByURL = false) : base(driver, openPageByURL)
         {
+            _logger.Info("Перехожу со страницы LoginPage на страницу  ProjectsPage");
         }
 
         public override bool IsPageOpened => _waitService.GetVisibleElement(AddProjectButtonBy) != null;

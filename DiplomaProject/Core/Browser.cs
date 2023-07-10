@@ -13,7 +13,7 @@ namespace DiplomaProject.Core
     {
         public Browser()
         {
-            Driver = Configurator.Browser?.ToLower() switch
+            Driver = Configurator.Instance.Browser?.ToLower() switch
             {
                 "chrome" => new DriverFactory().GetChromeDriver(),
                 _ => Driver

@@ -1,6 +1,8 @@
-﻿using DiplomaProject.Models;
+﻿using Allure.Commons;
+using DiplomaProject.Models;
 using DiplomaProject.Pages;
 using DiplomaProject.Steps;
+using NUnit.Allure.Attributes;
 using NUnit.Framework.Constraints;
 using OpenQA.Selenium;
 using System;
@@ -14,8 +16,16 @@ namespace DiplomaProject.Tests.UI
     public class ProjectsTest : BaseGuiTest
     {
 
-        [Test]
-        [Description("Check limit value 81 ")]
+        [Test, Category ("Positive")]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.minor)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_3")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка ввода  превышающего значения 81 ")]
         public void CheckLimitValue_1()
         {
             var user = new User
@@ -37,7 +47,15 @@ namespace DiplomaProject.Tests.UI
         }
 
         [Test]
-        [Description("Check limit value 0 ")]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.minor)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_4")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка ввода  граничного значения 0")]
         public void CheckLimitValue_2()
         {
             var user = new User
@@ -60,6 +78,15 @@ namespace DiplomaProject.Tests.UI
 
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_5")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description ("Проверка отображения диалогового окна")]
         public void CheckModalWindow()
         {
             try
@@ -89,6 +116,15 @@ namespace DiplomaProject.Tests.UI
 
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_6")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка добавления проекта")]
         public void AddProjectTest()
         {
             var user = new User
@@ -109,6 +145,15 @@ namespace DiplomaProject.Tests.UI
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_7")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка отображения всплывающего сообщения")]
         public void CheckTooltip()
         {
             try
@@ -138,6 +183,15 @@ namespace DiplomaProject.Tests.UI
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_7")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка успешной загрузки файла")]
         public void SuccecfulLoadingFile()
         {
             var user = new User
@@ -160,6 +214,16 @@ namespace DiplomaProject.Tests.UI
 
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_8")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка удаления проекта")]
+
         public void RemoveProjectTest()
         {
             try
@@ -183,15 +247,41 @@ namespace DiplomaProject.Tests.UI
 
                 Assert.IsTrue(deleteIcon != null);
 
-
-                //var displayed = deleteIcon.Displayed;
-                //var iconClass = deleteIcon.GetAttribute("class");
-                //Assert.IsTrue(iconClass.Contains("default-hidden"));
             }
             catch (Exception ex)
             {
                 Assert.Fail(ex.ToString());
             }
+        }
+
+        [Test, Category ("Failed")]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureOwner("User")]
+        [AllureSuite("PassedSuite")]
+        [AllureSubSuite("Gui")]
+        [AllureIssue(name: "ID_9")]
+        [AllureTag("Smoke")]
+        [AllureLink("https://elenkakruk.testmo.net/")]
+        [Description("Проверка успешной загрузки файла")]
+        public void SuccecfulLoadingFile_2()
+        {
+            var user = new User
+            {
+                Login = "krukelenka84@gmail.com",
+                Password = "krukelenka84"
+            };
+
+            if (!_loginSteps.SuccessfulLogin(user).IsPageOpened)
+                throw new Exception("Main page not opened!");
+
+            var projectsPage = new ProjectsPage(_driver, true);
+            projectsPage.AddProjectButton.Click();
+            projectsPage.SelectButton.Click();
+            projectsPage.SelectFileInput.SendKeys("C:\\Users\\Hp\\Pictures\\picture.png");
+
+            var avatarSrc = projectsPage.CustomAvatarImage;
+            Assert.IsFalse(avatarSrc != null);
         }
     }
 }
