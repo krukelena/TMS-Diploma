@@ -213,6 +213,7 @@ namespace DiplomaProject.Tests.UI
         }
 
 
+
         [Test]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
