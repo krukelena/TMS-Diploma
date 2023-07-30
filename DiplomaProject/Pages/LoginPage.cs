@@ -14,6 +14,7 @@ namespace DiplomaProject.Pages
         private static readonly By PasswordInputBy = By.Name("password");
         private static readonly By RememberMeCheckboxBy = By.Name("remember");
         private static readonly By LoginButtonBy = By.XPath("//button[text()='Log in']");
+        private static readonly By ErrorBlockBy = By.XPath("//div[@class='message-block message-block--negative message-block--scroll']");
 
 
         public LoginPage(IWebDriver driver, bool openPageByURL = false) : base(driver, openPageByURL)
@@ -32,5 +33,7 @@ namespace DiplomaProject.Pages
         public IWebElement RememberMeCheckbox => _driver.FindElement(RememberMeCheckboxBy);
 
         public Button LoginButton => new Button(_driver.FindElement(LoginButtonBy));
+
+        public IWebElement ErrorBlock => _waitService.SearchElement(ErrorBlockBy);
     }
 }

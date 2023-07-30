@@ -17,14 +17,6 @@ namespace DiplomaProject.Tests.API
         [SetUp]
         public void Setup()
         {
-
-            _logger.Trace("Сообщение уровня Trace");
-            _logger.Debug("Сообщение уровня Debag");
-            _logger.Info("Сообщение уровня Info");
-            _logger.Warn("Сообщение уровня Warn");
-            _logger.Error("Сообщение уровня Error");
-            _logger.Fatal("Сообщение уровня Fatal");
-
             _allure = AllureLifecycle.Instance;
             _logger.Trace("Setup");
 

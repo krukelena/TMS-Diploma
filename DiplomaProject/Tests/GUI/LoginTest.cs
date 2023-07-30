@@ -2,6 +2,7 @@
 using DiplomaProject.Core;
 using DiplomaProject.Pages;
 using DiplomaProject.Steps;
+using DiplomaProject.Utilities.Configuration;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using System;
@@ -23,15 +24,10 @@ namespace DiplomaProject.Tests.UI
         [AllureIssue(name: "ID_1")]
         [AllureTag("Smoke")]
         [AllureLink("https://elenkakruk.testmo.net/")]
-        [Description("Успешная ренистраци")]
-
+        [Description("Успешная регистрация")]
         public void SuccessfulLoginTest()
         {
-            _loginSteps.SuccessfulLogin(new Models.User
-            {
-                Login = "krukelenka84@gmail.com",
-                Password = "krukelenka84"
-            });
+            _loginSteps.SuccessfulLogin(Configurator.Instance.User);
            
             Assert.IsTrue(_loginSteps.HomePage.IsPageOpened);
         }
@@ -46,16 +42,16 @@ namespace DiplomaProject.Tests.UI
         [AllureTag("Smoke")]
         [AllureLink("https://elenkakruk.testmo.net/")]
         [Description("Не верные данные")]
-
         public void NegativeLoginTest()
         {
-            _loginSteps.NegativeLogin(new Models.User
-            {
-                Login = "krukelenka84@gmail.com",
-                Password = ""
-            });
+            var user = Configurator.Instance.User;
+            user.Password = "incorrect";
 
-            Assert.IsFalse(_loginSteps.HomePage.IsPageOpened);
+            _loginSteps.NegativeLogin(user);
+
+            var errorBlock = _loginSteps.LoginPage.ErrorBlock;
+
+            Assert.IsTrue(errorBlock != null);
         }
     }
 }

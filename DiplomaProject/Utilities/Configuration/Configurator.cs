@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DiplomaProject.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace DiplomaProject.Utilities.Configuration
 {
@@ -50,6 +51,20 @@ namespace DiplomaProject.Utilities.Configuration
                 appSettings.BearerToken = child["BearerToken"];
 
                 return appSettings;
+            }
+        }
+
+        public User User
+        {
+            get
+            {
+                var user = new User();
+                var child = Configuration.GetSection("User");
+
+                user.Login = child["Login"];
+                user.Password = child["Password"];
+
+                return user;
             }
         }
 

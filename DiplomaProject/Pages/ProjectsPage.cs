@@ -19,8 +19,8 @@ namespace DiplomaProject.Pages
         private static readonly By DefaultAccessTooltipBy = By.XPath("//div[@data-title='Default access']");
         private static readonly By SelectButtonBy = By.XPath("//button[@dusk='selectAvatarButton']");
         private static readonly By SelectFileInputBy = By.XPath("//input[@data-target='fileInput']");
-        private static readonly By AvatarImageBy = By.XPath("//div[@class='avatar avatar--project  avatar--64     ']/img");
-        private static readonly By CustomAvatarImageBy = By.XPath("//div[@class='avatar avatar--project  avatar--64     ']/img[contains(@src, 'attachments/view')]");
+        private static readonly By AvatarImageBy = By.CssSelector(".avatar.avatar--64 img");
+        private static readonly By AvatarCustomImageBy = By.CssSelector(".avatar.avatar--64 img[src*='attachments/view']");
 
         public static readonly By DeleteIconBy = By.XPath(".//div[@data-action='delete' and @class='tooltip']");
         public static readonly By HiddenDeleteIconBy = By.XPath(".//div[contains(@class, 'default-hidden')]");
@@ -28,11 +28,11 @@ namespace DiplomaProject.Pages
         public static readonly By DeleteButtonBy = By.XPath("//button[@data-target='deleteButton']");
 
 
-
         public ProjectsPage(IWebDriver driver, bool openPageByURL = false) : base(driver, openPageByURL)
         {
             _logger.Info("Перехожу со страницы LoginPage на страницу  ProjectsPage");
         }
+
 
         public override bool IsPageOpened => _waitService.GetVisibleElement(AddProjectButtonBy) != null;
 
@@ -44,7 +44,7 @@ namespace DiplomaProject.Pages
         public IWebElement SelectButton => _driver.FindElement(SelectButtonBy);
         public Input SelectFileInput => new Input(_driver.FindElement(SelectFileInputBy));
         public IWebElement AvatarImage => _driver.FindElement(AvatarImageBy);
-        public IWebElement CustomAvatarImage => _waitService.GetVisibleElement(CustomAvatarImageBy);
+        public IWebElement CustomAvatarImage => _waitService.GetVisibleElement(AvatarCustomImageBy);
 
 
         public IWebElement DeleteCheckbox => _driver.FindElement(DeleteCheckboxBy);
@@ -54,6 +54,11 @@ namespace DiplomaProject.Pages
         public IWebElement GetTableRowByProjectName(string projectName)
         {
             return _driver.FindElement(By.XPath($"//tr[@data-name='{projectName}']"));
+        }
+
+        public IWebElement GetTooltipByContent(string content)
+        {
+            return _driver.FindElement(By.XPath($"//div[text()='{content}']"));
         }
 
         public IWebElement FindHiddenDeleteIconByProjectId(string projectId)

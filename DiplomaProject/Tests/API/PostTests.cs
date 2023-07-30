@@ -6,7 +6,6 @@ namespace DiplomaProject.Tests.API
 {
     public class PostTests : BaseApiTest
     {
-
         [Test, Category("NFE")]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
@@ -16,14 +15,18 @@ namespace DiplomaProject.Tests.API
         [AllureIssue(name: "ID_API_5")]
         [AllureTag("Smoke")]
         [AllureLink("https://elenkakruk.testmo.net")]
-        [Description("Запуск автоматизации для проекта ID_79")]
+        [Description("Запуск автоматизации для проекта ID_5")]
         public void PostAutomationRun()
         {
-            var projectId = 79;
+            var projectId = 5;
             var request = new RestRequest($"/api/v1/projects/{projectId}/automation/runs", Method.Post);
             AddAuthorizationHeader(request);
 
-            var jsonContent = File.ReadAllText("Tests/Data/AutomationRun.json");
+            var jsonContent = File.ReadAllText(
+                "Tests" + Path.DirectorySeparatorChar
+                + "Data" + Path.DirectorySeparatorChar
+                + "AutomationRun.json"
+            );
 
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(jsonContent);
