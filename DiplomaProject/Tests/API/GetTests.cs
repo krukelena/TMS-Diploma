@@ -30,7 +30,6 @@ namespace DiplomaProject.Tests.API
             AssertResponse(_client.Execute(request));
         }
 
-
         [Test, Category("NFE")]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
@@ -43,13 +42,13 @@ namespace DiplomaProject.Tests.API
         [Description("Получить роли на проекте")]
         public void GetRoles()
         {
+            _logger.Trace("Test GetRoles");
+
             var request = new RestRequest("/api/v1/roles/2", Method.Get);
             AddAuthorizationHeader(request);
 
             AssertResponse(_client.Execute(request));
         }
-
-
 
         [Test, Category("NFE")]
         [AllureTag("Regression")]
@@ -63,14 +62,14 @@ namespace DiplomaProject.Tests.API
         [Description("Получить группы проекта")]
         public void GetGroups()
         {
+            _logger.Trace("Test GetGrourps");
+
             var request = new RestRequest("/api/v1/groups", Method.Get);
             AddAuthorizationHeader(request);
 
             AssertResponse(_client.Execute(request));
         }
-
-
-
+        
         [Test, Category("AFE")]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
