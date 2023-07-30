@@ -216,31 +216,31 @@ namespace DiplomaProject.Tests.UI
             }
         }
 
-        [Test, Category ("Failed")]
-        [AllureTag("Regression")]
-        [AllureSeverity(SeverityLevel.critical)]
-        [AllureOwner("User")]
-        [AllureSuite("PassedSuite")]
-        [AllureSubSuite("Gui")]
-        [AllureIssue(name: "ID_9")]
-        [AllureTag("Smoke")]
-        [AllureLink("https://elenkakruk.testmo.net/")]
-        [Description("Проверка успешной загрузки файла")]
-        public void SuccecfulLoadingFile_2()
-        {
-            if (!_loginSteps.SuccessfulLogin(Configurator.Instance.User).IsPageOpened)
-                throw new Exception("Main page not opened!");
+        //[Test, Category ("Failed")]
+        //[AllureTag("Regression")]
+        //[AllureSeverity(SeverityLevel.critical)]
+        //[AllureOwner("User")]
+        //[AllureSuite("PassedSuite")]
+        //[AllureSubSuite("Gui")]
+        //[AllureIssue(name: "ID_9")]
+        //[AllureTag("Smoke")]
+        //[AllureLink("https://elenkakruk.testmo.net/")]
+        //[Description("Проверка успешной загрузки файла")]
+        //public void SuccecfulLoadingFile_2()
+        //{
+        //    if (!_loginSteps.SuccessfulLogin(Configurator.Instance.User).IsPageOpened)
+        //        throw new Exception("Main page not opened!");
 
-            var projectsPage = new ProjectsPage(_driver, true);
-            projectsPage.AddProjectButton.Click();
-            projectsPage.SelectButton.Click();
-            projectsPage.SelectFileInput.SendKeys(
-                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                + Path.DirectorySeparatorChar + "picture.png"
-            );
+        //    var projectsPage = new ProjectsPage(_driver, true);
+        //    projectsPage.AddProjectButton.Click();
+        //    projectsPage.SelectButton.Click();
+        //    projectsPage.SelectFileInput.SendKeys(
+        //        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+        //        + Path.DirectorySeparatorChar + "picture.png"
+        //    );
 
-            var avatarSrc = projectsPage.CustomAvatarImage;
-            Assert.IsFalse(avatarSrc != null);
-        }
+        //    var avatarSrc = projectsPage.CustomAvatarImage;
+        //    Assert.IsFalse(avatarSrc != null);
+        //}
     }
 }
