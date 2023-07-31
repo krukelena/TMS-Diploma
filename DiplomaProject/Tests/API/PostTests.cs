@@ -1,4 +1,5 @@
 ﻿using Allure.Commons;
+using NLog;
 using NUnit.Allure.Attributes;
 using RestSharp;
 
@@ -6,6 +7,8 @@ namespace DiplomaProject.Tests.API
 {
     public class PostTests : BaseApiTest
     {
+        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+
         [Test, Category("NFE")]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
@@ -18,6 +21,8 @@ namespace DiplomaProject.Tests.API
         [Description("Запуск автоматизации для проекта ID_5")]
         public void PostAutomationRun()
         {
+            _logger.Info("Test PostAutomationRun started!");
+
             var projectId = 5;
             var request = new RestRequest($"/api/v1/projects/{projectId}/automation/runs", Method.Post);
             AddAuthorizationHeader(request);
@@ -32,6 +37,8 @@ namespace DiplomaProject.Tests.API
             request.AddJsonBody(jsonContent);
 
             AssertResponse(_client.Execute(request));
+
+            _logger.Info("Test PostAutomationRun finished!");
         }
     }
 }

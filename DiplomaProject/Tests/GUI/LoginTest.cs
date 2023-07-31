@@ -3,6 +3,7 @@ using DiplomaProject.Core;
 using DiplomaProject.Pages;
 using DiplomaProject.Steps;
 using DiplomaProject.Utilities.Configuration;
+using NLog;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using System;
@@ -15,6 +16,9 @@ namespace DiplomaProject.Tests.UI
 {
     public class LoginTest : BaseGuiTest
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+
         [Test, Category("Positive")]
         [AllureTag("Regression")]
         [AllureSeverity(SeverityLevel.critical)]
@@ -27,9 +31,13 @@ namespace DiplomaProject.Tests.UI
         [Description("Успешная регистрация")]
         public void SuccessfulLoginTest()
         {
+            _logger.Info("Test SuccessfulLoginTest started!");
+
             _loginSteps.SuccessfulLogin(Configurator.Instance.User);
            
             Assert.IsTrue(_loginSteps.HomePage.IsPageOpened);
+
+            _logger.Info("Test SuccessfulLoginTest finished!");
         }
 
         [Test, Category("Negative")]
@@ -44,6 +52,8 @@ namespace DiplomaProject.Tests.UI
         [Description("Не верные данные")]
         public void NegativeLoginTest()
         {
+            _logger.Info("Test NegativeLoginTest started!");
+
             var user = Configurator.Instance.User;
             user.Password = "incorrect";
 
@@ -52,6 +62,8 @@ namespace DiplomaProject.Tests.UI
             var errorBlock = _loginSteps.LoginPage.ErrorBlock;
 
             Assert.IsTrue(errorBlock != null);
+
+            _logger.Info("Test NegativeLoginTest finished!");
         }
     }
 }

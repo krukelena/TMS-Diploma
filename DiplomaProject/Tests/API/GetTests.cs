@@ -22,12 +22,14 @@ namespace DiplomaProject.Tests.API
         [Description("Получить проекты")]
         public void GetProducts()
         {
-            _logger.Trace("Test GetProducts");
+            _logger.Info("Test GetProducts started!");
 
             var request = new RestRequest("/api/v1/projects", Method.Get);
             AddAuthorizationHeader(request);
 
             AssertResponse(_client.Execute(request));
+
+            _logger.Info("Test GetProducts finished!");
         }
 
         [Test, Category("NFE")]
@@ -42,12 +44,14 @@ namespace DiplomaProject.Tests.API
         [Description("Получить роли на проекте")]
         public void GetRoles()
         {
-            _logger.Trace("Test GetRoles");
+            _logger.Info("Test GetRoles started!");
 
             var request = new RestRequest("/api/v1/roles/2", Method.Get);
             AddAuthorizationHeader(request);
 
             AssertResponse(_client.Execute(request));
+
+            _logger.Info("Test GetRoles finished!");
         }
 
         [Test, Category("NFE")]
@@ -62,12 +66,14 @@ namespace DiplomaProject.Tests.API
         [Description("Получить группы проекта")]
         public void GetGroups()
         {
-            _logger.Trace("Test GetGrourps");
+            _logger.Info("Test GetGroups started!");
 
             var request = new RestRequest("/api/v1/groups", Method.Get);
             AddAuthorizationHeader(request);
 
             AssertResponse(_client.Execute(request));
+
+            _logger.Info("Test GetGroups finished!");
         }
         
         [Test, Category("AFE")]
@@ -82,10 +88,14 @@ namespace DiplomaProject.Tests.API
         [Description("Получить пользователяб которого нет на проекте")]
         public void GetUsers2()
         {
+            _logger.Info("Test GetUsers2 started!");
+
             var request = new RestRequest("/api/v1/users/2", Method.Get);
             AddAuthorizationHeader(request);
 
             Assert.IsFalse(_client.Execute(request).IsSuccessful);
+
+            _logger.Info("Test GetUsers2 started!");
         }
     }
 }

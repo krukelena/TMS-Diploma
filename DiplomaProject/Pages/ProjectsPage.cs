@@ -63,9 +63,9 @@ namespace DiplomaProject.Pages
 
         public IWebElement FindHiddenDeleteIconByProjectId(string projectId)
         {
-            return _waitService.SearchElement(
-                By.XPath($"//tr[@data-id='{projectId}']/td[4]/div[contains(@class, 'default-hidden')]")
-            );
+            var xPath = $"//tr[@data-id='{projectId}']/td[4]/div[contains(@class, 'default-hidden')]";
+
+            return _waitService.SearchElement(By.XPath(xPath));
         }
     }
 }
