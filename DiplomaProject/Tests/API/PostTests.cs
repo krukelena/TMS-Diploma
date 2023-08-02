@@ -24,7 +24,10 @@ namespace DiplomaProject.Tests.API
             _logger.Info("Test PostAutomationRun started!");
 
             var projectId = 5;
-            var request = new RestRequest($"/api/v1/projects/{projectId}/automation/runs", Method.Post);
+            var request = new RestRequest(
+                $"/api/v1/projects/{projectId}/automation/runs", 
+                Method.Post
+            );
             AddAuthorizationHeader(request);
 
             var jsonContent = File.ReadAllText(

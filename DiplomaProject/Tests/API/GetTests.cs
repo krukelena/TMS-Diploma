@@ -20,7 +20,7 @@ namespace DiplomaProject.Tests.API
         [AllureTag("Smoke")]
         [AllureLink("https://elenkakruk.testmo.net")]
         [Description("Получить проекты")]
-        public void GetProducts()
+        public void GetProjects()
         {
             _logger.Info("Test GetProducts started!");
 

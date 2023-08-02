@@ -8,7 +8,6 @@ namespace DiplomaProject.Utilities.Configuration
         private static object _lockObject = new object();
         private static Configurator _instance;
 
-       
         public static Configurator Instance
         {
             get
@@ -29,7 +28,6 @@ namespace DiplomaProject.Utilities.Configuration
         }
 
 
-        // тут как и раньше, только те
         private Configurator()
         {
             _configuration = new Lazy<IConfiguration>(BuildConfiguration);
@@ -68,7 +66,7 @@ namespace DiplomaProject.Utilities.Configuration
             }
         }
 
-        public string? Browser => Configuration["Browser"];
+        public string Browser => Configuration["Browser"] ?? "";
 
 
         private IConfiguration BuildConfiguration()

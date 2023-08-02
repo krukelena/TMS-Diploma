@@ -32,6 +32,7 @@ namespace DiplomaProject.Steps
             
             return HomePage;
         }
+
         public LoginPage NegativeLogin(User user)
         {
             Login(user);

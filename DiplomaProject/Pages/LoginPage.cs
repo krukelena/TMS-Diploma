@@ -17,9 +17,8 @@ namespace DiplomaProject.Pages
         private static readonly By ErrorBlockBy = By.XPath("//div[@class='message-block message-block--negative message-block--scroll']");
 
 
-        public LoginPage(IWebDriver driver, bool openPageByURL = false) : base(driver, openPageByURL)
-        {
-        }
+        public LoginPage(IWebDriver driver, bool openPageByURL = false) 
+            : base(driver, openPageByURL) { }
 
         public override bool IsPageOpened => _waitService.GetVisibleElement(LoginButtonBy) != null;
 
